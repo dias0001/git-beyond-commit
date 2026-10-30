@@ -113,4 +113,24 @@ Este repositório será atualizado progressivamente com novos laboratórios, exe
 
 ---
 
+## 🧠 Mapa mental — Git Beyond Commit
+
+## 🚀 Evolução do projeto
+
+Este repositório será atualizado progressivamente com novos laboratórios, exemplos práticos, diagramas e estudos sobre Git e GitHub.
+
+---
+
+## 🧠 Mapa mental — Git Beyond Commit
+
+Resumo visual dos conceitos e comandos estudados nos laboratórios.
+
+![Mapa mental de Git e GitHub](assets/mapa-mental-git.png)
+
+---
+
+**Git Beyond Commit — Além dos comandos. Entenda o histórico.**esumo visual dos conceitos e comandos estudados nos laboratórios.
+
+![Mapa mental de Git e GitHub](assets/mapa-mental-git.png)
+
 **Git Beyond Commit — Além dos comandos. Entenda o histórico.**
