@@ -127,6 +127,8 @@ Resumo visual dos conceitos e comandos estudados nos laboratórios.
 
 ![Mapa mental de Git e GitHub](assets/mapa-mental-git.png)
 
+![Mapa mental do Fluxo de Trabalho Git](assets/Mapa%20Mental%20do%20Fluxo%20de%20Trabalho%20Git.png)
+
 ---
 
 **Git Beyond Commit — Além dos comandos. Entenda o histórico.**Resumo visual dos conceitos e comandos estudados nos laboratórios.
