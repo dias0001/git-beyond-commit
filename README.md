@@ -523,6 +523,7 @@ Resumo visual dos conceitos e comandos estudados nos laboratórios.
 
 ![Mapa mental do Fluxo de Trabalho Git](assets/Mapa%20Mental%20do%20Fluxo%20de%20Trabalho%20Git.png)
 
+![Mapa mental Git Beyond Commit v2.1](assets/Mapa%20Mentalconceitos-comandos-fluxo-pratico-sincronizacao.png)
 ---
 
 **Git Beyond Commit — Além dos comandos. Entenda o histórico.**
