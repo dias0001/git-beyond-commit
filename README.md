@@ -352,6 +352,153 @@ O VS Code Remote SSH não substitui o conhecimento do terminal Linux ou dos coma
 **Aprendizado principal:** compreender a diferença entre arquivo, diretório, workspace e terminal permite trabalhar com mais autonomia e organização em ambientes de desenvolvimento e infraestrutura.
 
 
+### 09 — Troubleshooting: divergência entre repositório local e remoto
+
+**Data:** 06/11/2026  
+**Ambiente:** Ubuntu Linux — Git — GitHub — VS Code Remote SSH  
+**Repositório:** `dias0001/git-beyond-commit`  
+**Resultado:** Resolvido e publicado no GitHub.
+
+#### Objetivo
+
+Investigar a rejeição de um `git push`, compreender a divergência entre os históricos local e remoto e integrar as alterações sem perder a documentação ou as imagens existentes.
+
+#### 1. Cenário real
+
+Após atualizar o `README.md` com as seções 06, 07 e 08, foi criado o commit local:
+
+```bash
+git commit -m "docs: registra evolucao em Git Linux e VS Code Remote SSH"
+```
+
+**Commit:** `eccb3fd`
+
+Ao executar `git push`, o Git recusou a publicação:
+
+```text
+! [rejected] main -> main (fetch first)
+error: failed to push some refs
+```
+
+O comando `git push origin main` também foi rejeitado.
+
+**Interpretação:** o GitHub possuía commits que ainda não estavam no histórico local. A rejeição não estava relacionada à ausência de upstream.
+
+#### 2. Buscar as atualizações remotas
+
+```bash
+git fetch origin
+```
+
+Resultado observado:
+
+```text
+f72dac9..1fc2893 main -> origin/main
+```
+
+O `fetch` atualizou a referência remota `origin/main`, sem integrar automaticamente os commits à branch local.
+
+#### 3. Investigar os históricos
+
+```bash
+git log --oneline --graph --decorate --all -8
+```
+
+O resultado revelou:
+
+- `eccb3fd` — commit local com a documentação atualizada.
+- `1fc2893` — alteração remota do README.
+- `5d94444` — inclusão de arquivos pelo GitHub.
+- `f72dac9` — ancestral comum dos dois históricos.
+
+**Conclusão:** os históricos haviam divergido a partir de um commit comum.
+
+#### 4. Comparar as alterações
+
+```bash
+git diff --stat main origin/main
+```
+
+A comparação identificou diferenças no `README.md` e uma imagem adicional:
+
+```text
+assets/Mapa Mental do Fluxo de Trabalho Git.png
+```
+
+Para examinar a versão remota do README sem modificar o arquivo local:
+
+```bash
+git show origin/main:README.md
+```
+
+A investigação confirmou que a versão remota continha a referência à imagem adicional, enquanto a versão local possuía a documentação mais recente.
+
+#### 5. Integrar os históricos com segurança
+
+```bash
+git merge origin/main --no-commit --no-ff
+```
+
+Resultado:
+
+```text
+Automatic merge went well; stopped before committing as requested
+```
+
+O Git realizou a integração automática sem conflitos.
+
+- `--no-commit`: interrompe antes de criar o commit de merge.
+- `--no-ff`: solicita um commit de merge mesmo quando seria possível avançar diretamente a referência da branch.
+
+#### 6. Validar antes de confirmar
+
+```bash
+git diff --cached --stat
+git diff --cached -- README.md
+```
+
+A validação confirmou que o merge acrescentou a referência à imagem e preservou as seções 06, 07 e 08.
+
+O arquivo `README.md.bak` permaneceu fora do commit.
+
+#### 7. Confirmar o merge e publicar
+
+```bash
+git commit -m "merge: integra atualizacoes remotas e preserva documentacao"
+git push
+```
+
+**Commit de merge:** `6fed410`
+
+Resultado:
+
+```text
+1fc2893..6fed410 main -> main
+```
+
+A publicação foi concluída com sucesso.
+
+#### 8. Fluxo prático executado
+
+**Commit local → Push rejeitado → Fetch → Análise dos históricos → Merge → Commit → Push bem-sucedido.**
+
+#### 9. Aprendizados
+
+- Um push rejeitado não significa necessariamente que o comando esteja incorreto.
+- `git fetch` busca atualizações sem integrá-las automaticamente.
+- `git log --graph` ajuda a visualizar históricos divergentes.
+- `git diff` permite investigar diferenças antes da integração.
+- `git merge --no-commit --no-ff` permite revisar o resultado antes do commit.
+- A integração deve preservar tanto o histórico local quanto o remoto.
+- O backup não monitorado não precisa ser incluído no commit.
+
+#### Conclusão
+
+A divergência foi resolvida por meio de investigação, interpretação do histórico e integração controlada, sem sobrescrever o trabalho existente.
+
+**Aprendizado principal:** compreender o estado do repositório antes de executar comandos é fundamental para trabalhar com segurança e autonomia.
+
+
 ## 🧪 Ambiente de laboratório
 
 - Ubuntu Linux
