@@ -498,6 +498,128 @@ A divergência foi resolvida por meio de investigação, interpretação do hist
 
 **Aprendizado principal:** compreender o estado do repositório antes de executar comandos é fundamental para trabalhar com segurança e autonomia.
 
+### 10 — Wildcards no Bash e preparação seletiva de arquivos no Git
+
+**Data:** 06/11/2026  
+**Ambiente:** Ubuntu Linux — Bash — Git — GitHub — VS Code Remote SSH  
+**Status:** Laboratório executado e validado.
+
+#### Objetivo
+
+Compreender como o Bash utiliza caracteres curingas (*wildcards*) para selecionar arquivos e como essa funcionalidade pode ser aplicada ao comando `git add`.
+
+#### 1. Cenário real
+
+Durante a publicação do mapa mental Git Beyond Commit v2.1, utilizamos:
+
+```bash
+git add assets/*.png
+```
+
+O objetivo era preparar os arquivos PNG da pasta `assets` para o próximo commit, sem incluir o backup `README.md.bak`.
+
+#### 2. Entendendo o comando
+
+| Elemento | Significado |
+|---|---|
+| `git add` | Prepara alterações para o próximo commit. |
+| `assets/` | Diretório onde estão armazenadas as imagens. |
+| `*` | Wildcard que corresponde a qualquer sequência de caracteres, inclusive vazia. |
+| `.png` | Extensão utilizada no padrão de seleção. |
+
+O Bash expande o padrão `assets/*.png` para os nomes dos arquivos correspondentes antes de executar o Git.
+
+**Importante:** o padrão seleciona arquivos diretamente dentro de `assets`, não arquivos em subdiretórios.
+
+#### 3. Exemplos de wildcards
+
+| Padrão | Comportamento |
+|---|---|
+| `*.png` | Seleciona nomes terminados em `.png` no diretório atual. |
+| `assets/*.png` | Seleciona arquivos PNG diretamente em `assets`. |
+| `*.md` | Seleciona nomes terminados em `.md`. |
+| `arquivo?.txt` | Seleciona nomes como `arquivo1.txt`, com exatamente um caractere na posição de `?`. |
+
+O caractere `*` corresponde a zero ou mais caracteres, enquanto `?` corresponde a exatamente um caractere.
+
+No Bash, arquivos ocultos iniciados por ponto geralmente não são incluídos por `*` nas configurações padrão.
+
+#### 4. Diferença entre preparação específica e abrangente
+
+```bash
+git add README.md
+```
+
+Prepara alterações do arquivo especificado.
+
+```bash
+git add assets/*.png
+```
+
+Prepara os caminhos correspondentes ao padrão expandido pelo Bash.
+
+```bash
+git add .
+```
+
+Prepara alterações abrangidas pelo diretório atual e seus subdiretórios, incluindo arquivos não monitorados.
+
+**Atenção:** `git add .` poderia incluir o backup `README.md.bak`, algo que desejávamos evitar.
+
+#### 5. Validação prática
+
+Após executar:
+
+```bash
+git add README.md
+git add assets/*.png
+git status
+```
+
+O Git apresentou:
+
+```text
+Mudanças a serem submetidas:
+    modified:   README.md
+    new file:   assets/Mapa Mentalconceitos-comandos-fluxo-pratico-sincronizacao.png
+
+Arquivos não monitorados:
+    README.md.bak
+```
+
+O resultado confirmou que a imagem e o README foram preparados, enquanto o backup permaneceu fora do commit.
+
+#### 6. Commit e publicação
+
+```bash
+git commit -m "docs: adiciona mapa mental v2.1 de Git e sincronizacao"
+git push
+```
+
+**Commit:** `7e7c55a`
+
+Resultado observado:
+
+```text
+833cd8d..7e7c55a  main -> main
+```
+
+A publicação foi concluída com sucesso no GitHub.
+
+#### 7. Aprendizados
+
+- Wildcards são recursos de seleção de nomes de arquivos do shell.
+- O Bash normalmente expande `*` e `?` antes de executar o comando.
+- `git add` prepara alterações para o commit, mas não publica arquivos no GitHub.
+- A seleção específica ajuda a evitar a inclusão de arquivos indesejados.
+- `git status` permite conferir o que será incluído no commit.
+- Os conceitos de Bash e Git se complementam em atividades de administração Linux.
+
+#### Conclusão
+
+A publicação do mapa mental v2.1 proporcionou um novo aprendizado sobre a interação entre Bash, estrutura de diretórios e controle de versão.
+
+**Aprendizado principal:** compreender como o shell interpreta padrões de arquivos permite utilizar o Git com mais precisão e segurança.
 
 ## 🧪 Ambiente de laboratório
 
